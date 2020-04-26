@@ -8,6 +8,7 @@ export interface Contest {
   originStartTime: number
   isVirtual: boolean
   company?: Company | null
+  containsPremium: boolean
 }
 
 export interface Company {
