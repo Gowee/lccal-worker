@@ -18,7 +18,7 @@ export interface Company {
 export async function fetchContests(): Promise<Array<Contest>> {
   const response = await fetch('https://leetcode.com/graphql', {
     headers: {
-      'User-Agent': 'lccal-worker/0.1',
+      'User-Agent': 'lccal-worker/0.1 (+https://github.com/Gowee/lccal-worker)',
       // "Accept": "*/*",
       // "Accept-Language": "en-US,en;q=0.5",
       'content-type': 'application/json',
