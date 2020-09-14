@@ -4,6 +4,7 @@
     "module": "commonjs",
     "target": "esnext",
     "lib": ["esnext", "webworker"],
+    "types": ["@cloudflare/workers-types"],
     "alwaysStrict": true,
     "strict": true,
     "preserveConstEnums": true,
