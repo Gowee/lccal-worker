@@ -45,7 +45,7 @@ class Compositor {
       xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
       xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#"
       xmlns:dc = "http://purl.org/dc/elements/1.1/" >
-      <rdf:Description about="https://${LCCUrl}/contests"
+      <rdf:Description about="${LCCUrl}"
         dc:title="LeetCode Weekly contests canlenadr"
         dc:description="An auto-generated calendar for LeetCode (Bi)Weekly contests"
         dc:publisher="https://github.com/Gowee/lccal-worker"
