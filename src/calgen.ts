@@ -6,13 +6,17 @@ function urlJoin(base: string, url: string): string {
   return absUrl.toString()
 }
 
-export function generateCalendar(contests: Array<Contest>, limit = 10): string {
+export function generateCalendar(
+  contests: Array<Contest>,
+  offset = 0,
+  limit = 10,
+): string {
   const cal = ICalGenerator({
     domain: 'lccal-worker',
     name: 'LeetCode Contests',
     url: 'https://leetcode.com/contest',
   })
-  for (const contest of contests.slice(0, limit)) {
+  for (const contest of contests.slice(offset, offset + limit)) {
     cal.createEvent({
       id: contest.titleSlug,
       start: new Date(contest.startTime * 1000),

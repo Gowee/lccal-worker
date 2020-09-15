@@ -19,10 +19,10 @@ export async function handleEvent(event: FetchEvent): Promise<Response> {
   switch (url.pathname) {
     case '/':
     case '/ical':
-      return await cached(handleICal)(event)
+      return await cached(handleICal, 1200)(event)
       break
     case '/svg':
-      return await cached(handleSvg)(event)
+      return await cached(handleSvg, 1200)(event)
     default:
       return new Response(
         `Resource Not Found at the endpoint ${url.pathname}`,
@@ -33,18 +33,22 @@ export async function handleEvent(event: FetchEvent): Promise<Response> {
 
 async function handleICal(request: Request): Promise<Response> {
   const params = new URL(request.url).searchParams
+  const offset = parseInt(params.get('offset') || '0')
   const limit = parseInt(params.get('limit') || '10')
   const contests = await fetchContests()
   // Not necessary to specify timeZone here, as it produces standard date format.
-  const ical = generateCalendar(contests, limit)
+  const ical = generateCalendar(contests, offset, limit)
   return new Response(ical, { headers: HEADERS_ICAL })
 }
 
 async function handleSvg(request: Request): Promise<Response> {
   const params = new URL(request.url).searchParams
   const timeZone = params.get('timezone')
+  const offset = parseInt(params.get('offset') || '0')
   const limit = parseInt(params.get('limit') || '10')
+  const width = params.get('width')
+  const height = params.get('height')
   const contests = await fetchContests()
-  const ical = generateSvg(contests, limit, timeZone)
+  const ical = generateSvg(contests, offset, limit, timeZone, width, height)
   return new Response(ical, { headers: HEADERS_SVG })
 }

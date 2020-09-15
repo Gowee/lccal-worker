@@ -8,25 +8,36 @@ function urlJoin(base: string, url: string): string {
 
 export function generateSvg(
   contests: Array<Contest>,
+  offset = 0,
   limit = 10,
   timeZone: String | null = null,
+  width: number | string | null,
+  height: number | string | null,
 ): string {
-  const compositor = new Compositor(timeZone)
-  return compositor.draw(contests.slice(0, limit))
+  const compositor = new Compositor(timeZone, width, height)
+  return compositor.draw(contests.slice(offset, offset + limit))
 }
 
 class Compositor {
   timeZone: String
+  width: number | string
+  height: number | string
 
-  constructor(timeZone: String | null) {
+  constructor(
+    timeZone: String | null,
+    width: number | string | null = null,
+    height: number | string | null = null,
+  ) {
     this.timeZone = timeZone || 'UTC'
+    this.width = width || '300'
+    this.height = height || 'auto'
   }
 
   draw(contests: Array<Contest>): string {
     return `\
-<svg xmlns="http://www.w3.org/2000/svg" width="450" viewBox="0 0 300 ${
-      contests.length * 90
-    }">
+<svg xmlns="http://www.w3.org/2000/svg" width="${this.width}" height="${
+      this.height
+    }" viewBox="0 0 300 ${contests.length * 90}">
   <metadata>
     <rdf:RDF
       xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"

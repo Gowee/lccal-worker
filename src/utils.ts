@@ -1,4 +1,7 @@
-export function cached(func: (request: Request) => Promise<Response>) {
+export function cached(
+  func: (request: Request) => Promise<Response>,
+  maxAge: number | null = null,
+) {
   // Ref: https://github.com/cloudflare/template-registry/blob/f2a21ff87a4f9c60ce1d426e9e8d2e6807b786fd/templates/javascript/cache_api.js#L9
   const cache = caches.default
   async function cachedFunc(event: FetchEvent) {
@@ -6,6 +9,9 @@ export function cached(func: (request: Request) => Promise<Response>) {
     let response = await cache.match(request)
     if (!response) {
       response = await func(request)
+      if (maxAge !== null && !response.headers.has('Cache-Control')) {
+        response.headers.append('Cache-Control', `max-age=${maxAge}`)
+      }
       event.waitUntil(cache.put(request, response.clone()))
     }
     return response
