@@ -1,3 +1,5 @@
+export const LCCUrl = 'https://leetcode.com/contest/'
+
 export interface Contest {
   title: string
   titleSlug: string
@@ -15,7 +17,11 @@ export interface Company {
   watermark?: string | null
 }
 
-export async function fetchContests(): Promise<Array<Contest>> {
+export async function fetchContests(
+  start = 0,
+  offset = 0,
+): Promise<Array<Contest>> {
+  // TODO: Does the `allContests` GraphQL query support limit / offset?
   const response = await fetch('https://leetcode.com/graphql', {
     headers: {
       'User-Agent': 'lccal-worker/0.1 (+https://github.com/Gowee/lccal-worker)',

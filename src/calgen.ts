@@ -1,7 +1,5 @@
-import { Contest, fetchContests } from './lcapi'
+import { LCCUrl, Contest } from './lcapi'
 import ICalGenerator from 'ical-generator'
-
-const LCURL = 'https://leetcode.com/'
 
 function urlJoin(base: string, url: string): string {
   const absUrl = new URL(url, base)
@@ -20,7 +18,7 @@ export function generateCalendar(contests: Array<Contest>, limit = 10): string {
       start: new Date(contest.startTime * 1000),
       end: new Date((contest.startTime + contest.duration) * 1000),
       summary: `[Leetcode] ${contest.title}`,
-      url: urlJoin(LCURL, contest.titleSlug),
+      url: urlJoin(LCCUrl, contest.titleSlug),
     })
   }
   return cal.toString()
