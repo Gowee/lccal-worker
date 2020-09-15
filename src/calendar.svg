@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 600">
+
+    <defs>
+        <linearGradient id="yellowGradient" gradientTransform="rotate(87)">
+            <stop offset="5%" stop-color="#fffc43" />
+            <stop offset="95%" stop-color="#ffd479" />
+        </linearGradient>
+        <linearGradient id="blueGradient" gradientTransform="rotate(87)">
+            <stop offset="5%" stop-color="#4fe3f8" />
+            <stop offset="95%" stop-color="#0e99d0" />
+        </linearGradient>
+    </defs>
+    <style>
+        .contest-title {
+            font: bold 1.3em sans-serif;
+        }
+    </style>
+
+    <!-- using my linear gradient -->
+    <circle cx="50" cy="50" r="20" fill="url('#myGradient')" />
+    <g transform="translate(0, 0)">
+        <rect width="300" height="87" fill="url('#blueGradient')" rx="15" />
+        <text x="15" y="30" class="contest-title">
+            Weekly Contest 221
+        </text>
+        <text x="15" y="50">
+            Sep 19, 2020 @ 10:30 PM - 12:00 AM
+        </text>
+        <text x="15" y="70">
+            1 hour 30 minutes contest
+        </text>
+        <text x="260" y="70">
+            🔗
+        </text>
+    </g>
+    <g transform="translate(0, 90)">
+        <rect width="300" height="87" fill="url('#yellowGradient')" rx="15" />
+        <text x="20" y="35" class="contest-title">
+            Biweekly Contest 221
+        </text>
+        <text x="20" y="55">
+            Sep 19, 2020 @ 10:30 PM - 12:00 AM
+        </text>
+    </g>
+</svg>
