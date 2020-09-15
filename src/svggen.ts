@@ -10,7 +10,7 @@ export function generateSvg(
   contests: Array<Contest>,
   offset = 0,
   limit = 10,
-  timeZone: String | null = null,
+  timeZone: String | null,
   width: number | string | null,
   height: number | string | null,
 ): string {
@@ -25,8 +25,8 @@ class Compositor {
 
   constructor(
     timeZone: String | null,
-    width: number | string | null = null,
-    height: number | string | null = null,
+    width: number | string | null,
+    height: number | string | null,
   ) {
     this.timeZone = timeZone || 'UTC'
     this.width = width || '300'

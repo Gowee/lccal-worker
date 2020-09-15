@@ -2,7 +2,7 @@ import { XmlEntities } from 'html-entities'
 
 export function cached(
   func: (request: Request) => Promise<Response>,
-  maxAge: number | null = null,
+  maxAge: number | null,
 ) {
   // Ref: https://github.com/cloudflare/template-registry/blob/f2a21ff87a4f9c60ce1d426e9e8d2e6807b786fd/templates/javascript/cache_api.js#L9
   const cache = caches.default
