@@ -1,3 +1,5 @@
+import { XmlEntities } from 'html-entities'
+
 export function cached(
   func: (request: Request) => Promise<Response>,
   maxAge: number | null = null,
@@ -28,4 +30,38 @@ export function duration2hms(duration: number): [number, number, number] {
 
 export function divmod(a: number, b: number): [number, number] {
   return [Math.floor(a / b), a % b]
+}
+
+const xmlEscaper = new XmlEntities()
+
+export function xmlEscape(
+  text: string | number | null | undefined | boolean,
+): string | number | null | undefined | boolean {
+  if (
+    text === null ||
+    text === undefined ||
+    typeof text === 'number' ||
+    typeof text === 'boolean'
+  ) {
+    return text
+  } else {
+    return xmlEscaper.encode(text)
+  }
+}
+
+export function santinizeWidthHeight(
+  value: string | number | null,
+): string | number | null {
+  // doesn't work as parseInt("100abc") === 100
+  if (
+    value === null ||
+    typeof value === 'number' ||
+    parseInt(value) !== NaN ||
+    value.toLowerCase() == 'auto' ||
+    (value.endsWith('%') && parseInt(value.slice(0, value.length - 1)) !== NaN)
+  ) {
+    return value
+  } else {
+    return null
+  }
 }

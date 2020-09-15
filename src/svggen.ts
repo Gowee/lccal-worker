@@ -1,5 +1,5 @@
 import { LCCUrl, Contest } from './lcapi'
-import { duration2hms } from './utils'
+import { duration2hms, xmlEscape } from './utils'
 
 function urlJoin(base: string, url: string): string {
   const absUrl = new URL(url, base)
@@ -35,9 +35,11 @@ class Compositor {
 
   draw(contests: Array<Contest>): string {
     return `\
-<svg xmlns="http://www.w3.org/2000/svg" width="${this.width}" height="${
-      this.height
-    }" viewBox="0 0 300 ${contests.length * 90}">
+<svg xmlns="http://www.w3.org/2000/svg" width="${xmlEscape(
+      this.width,
+    )}" height="${xmlEscape(this.height)}" viewBox="0 0 300 ${
+      contests.length * 90
+    }">
   <metadata>
     <rdf:RDF
       xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -87,9 +89,9 @@ class Compositor {
     }
     return `\
     <rect width="300" height="87" fill="url('${gradient}')" rx="15" />
-      <a href="${urlJoin(LCCUrl, contest.titleSlug)}">
+      <a href="${xmlEscape(urlJoin(LCCUrl, contest.titleSlug))}">
       <text x="15" y="30" class="contest-title">
-        ${contest.title}
+        ${xmlEscape(contest.title)}
       </text>
       <text x="15" y="50">
         ${this.datetimeText(contest.startTime, contest.duration)}

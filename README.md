@@ -1,6 +1,6 @@
 # lccal-worker
 
-A script that generates [iCal/ics](https://tools.ietf.org/html/rfc5545) for Leetcode (Bi)Weekly Contests, deployed on Cloudflare Workes: [https://lccal-worker.bamboo.workers.dev/ical](https://lccal-worker.bamboo.workers.dev/ical) [__(?)__](https://duck.com/?q=how+to+import+ical).
+A script that generates [iCal/ics](https://tools.ietf.org/html/rfc5545) for Leetcode (Bi)Weekly Contests, deployed on Cloudflare Workes: [https://lccal-worker.bamboo.workers.dev/ical](https://lccal-worker.bamboo.workers.dev/ical) [**(?)**](https://duck.com/?q=how+to+import+ical).
 
 Also auto-generated SVGs with `width` fixed & `limit` to be `5` & other params to be default; and with `timezone` to be `Asia/Shanghai` & `offset` to be `5`, respectively:
 
