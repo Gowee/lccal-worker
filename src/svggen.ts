@@ -72,7 +72,8 @@ class Compositor {
       text-decoration: underline;
     }
   </style>
-  ${contests.map((entry, index) => this.contest(entry, index)).join('\n')}
+
+${contests.map((entry, index) => this.contest(entry, index)).join('\n')}
 </svg>`
   }
 
