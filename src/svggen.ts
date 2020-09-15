@@ -80,7 +80,7 @@ class Compositor {
 
   contestContent(contest: Contest): string {
     let gradient
-    if (contest.titleSlug.indexOf('biweekly') !== -1) {
+    if (contest.titleSlug.indexOf('biweekly') === -1) {
       gradient = '#yellowGradient'
     } else {
       gradient = '#blueGradient'
