@@ -14,7 +14,7 @@ export function generateCalendar(
   const cal = ICalGenerator({
     domain: 'lccal-worker',
     name: 'LeetCode Contests',
-    url: 'https://leetcode.com/contest',
+    url: LCCUrl,
   })
   for (const contest of contests.slice(offset, offset + limit)) {
     cal.createEvent({
