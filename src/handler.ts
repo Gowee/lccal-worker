@@ -8,12 +8,10 @@ export async function handleEvent(event: FetchEvent): Promise<Response> {
   const url = new URL(request.url)
   switch (url.pathname) {
     case '/':
-      const redirectedTo = new URL(request.url) // TODO: use relative
-      redirectedTo.pathname = "/ical"
       return new Response(`The iCal service has been moved to the endpoint "/ical".
 The old default endpoint "/" is deprecated and may be removed in the future.
 `,
-        { status: 302, headers: { 'Location': redirectedTo.toString() } })
+        { status: 302, headers: { 'Location': "/ical" } })
     case '/ical':
       return await cached(handleICal, 1200)(event)
       break
