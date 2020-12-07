@@ -31,21 +31,18 @@ export class LCApi {
   constructor(dataRegion?: string | null) {
     switch (dataRegion) {
       case 'CN':
-        this.baseUrl = "https://leetcode-cn.com/"
+        this.baseUrl = 'https://leetcode-cn.com/'
         break
       case 'US':
       default:
-        this.baseUrl = "https://leetcode.com/"
+        this.baseUrl = 'https://leetcode.com/'
     }
 
     // this.fetchContests = this.fetchContests.bind(this)
     this.getContestUrl = this.getContestUrl.bind(this)
   }
 
-  async fetchContests(
-    start = 0,
-    offset = 0,
-  ): Promise<Array<Contest>> {
+  async fetchContests(start = 0, offset = 0): Promise<Array<Contest>> {
     // TODO: Does the `allContests` GraphQL query support limit / offset?
     const response = await fetch(urlJoin(this.baseUrl, '/graphql'), {
       headers: JSON_REQUEST_HEADERS,
@@ -63,7 +60,7 @@ export class LCApi {
    * titleSlug is unspecified.
    */
   getContestUrl(titleSlug?: string): string {
-    let url = urlJoin(this.baseUrl, "/contest/")
+    let url = urlJoin(this.baseUrl, '/contest/')
     if (titleSlug) {
       url = urlJoin(url, titleSlug)
     }

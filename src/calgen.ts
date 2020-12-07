@@ -13,13 +13,13 @@ export function generateCalendar(
   offset = 0,
   limit = 10,
   timezone?: string | null,
-  serviceUrl?: string | null
+  serviceUrl?: string | null,
 ): string {
   const cal = ICalGenerator({
     domain: 'lccal-worker',
     name: 'LeetCode Contests',
-    url: serviceUrl || PACKAGE.iCalService + "?from_unknown_service_instance",
-    timezone: timezone || undefined
+    url: serviceUrl || PACKAGE.iCalService + '?from_unknown_service_instance',
+    timezone: timezone || undefined,
   })
   for (const contest of contests.slice(offset, offset + limit)) {
     cal.createEvent({

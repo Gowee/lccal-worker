@@ -9,9 +9,15 @@ export function generateSvg(
   width: number | string | null,
   height: number | string | null,
   timeZone?: string | null,
-  serviceUrl?: string | null
+  serviceUrl?: string | null,
 ): string {
-  const compositor = new Compositor(contestUrlGetter, width, height, timeZone, serviceUrl)
+  const compositor = new Compositor(
+    contestUrlGetter,
+    width,
+    height,
+    timeZone,
+    serviceUrl,
+  )
   return compositor.draw(contests.slice(offset, offset + limit))
 }
 
@@ -27,7 +33,7 @@ class Compositor {
     width: number | string | null,
     height: number | string | null,
     timeZone?: String | null,
-    serviceUrl?: string | null
+    serviceUrl?: string | null,
   ) {
     this.getContestUrl = contestUrlGetter
     this.timeZone = timeZone || 'UTC'
@@ -40,8 +46,9 @@ class Compositor {
     return `\
 <svg xmlns="http://www.w3.org/2000/svg" width="${xmlEscape(
       this.width,
-    )}" height="${xmlEscape(this.height)}" viewBox="0 0 300 ${contests.length * 90
-      }">
+    )}" height="${xmlEscape(this.height)}" viewBox="0 0 300 ${
+      contests.length * 90
+    }">
   <metadata>
     <rdf:RDF
       xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -51,7 +58,7 @@ class Compositor {
         dc:title="LeetCode Contests Calendar"
         dc:description="An auto-generated calendar for LeetCode (Bi)Weekly contests"
         dc:publisher="https://github.com/Gowee/lccal-worker"
-        dc:creator="${this.serviceUrl || "Unkonwn service instance"}"
+        dc:creator="${this.serviceUrl || 'Unkonwn service instance'}"
         dc:date="${new Date().toISOString()}"
         dc:format="image/svg+xml"
         dc:language="en" />
