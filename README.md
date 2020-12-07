@@ -1,6 +1,6 @@
 # lccal-worker
 
-A script that generates 📅 [iCal/ics](https://tools.ietf.org/html/rfc5545) for Leetcode (Bi)Weekly Contests, deployed on Cloudflare Workes: [https://lccal-worker.bamboo.workers.dev/ical](https://lccal-worker.bamboo.workers.dev/ical).
+A script that generates 📅 [iCal/ics](https://tools.ietf.org/html/rfc5545) for Leetcode (Bi)Weekly Contests, deployed on Cloudflare Workes: [https://lccal-worker.bamboo.workers.dev/ical?download](https://lccal-worker.bamboo.workers.dev/ical).
 
 ## iCal generator
 **Endpoint**: [`/ical`](https://lccal-worker.bamboo.workers.dev/ical)
