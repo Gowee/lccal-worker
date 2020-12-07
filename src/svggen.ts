@@ -40,6 +40,10 @@ class Compositor {
     this.width = width || '300'
     this.height = height || 'auto'
     this.serviceUrl = serviceUrl
+    if (this.serviceUrl) {
+      // xmlEscape won't escape &
+      this.serviceUrl = this.serviceUrl.split("?")[0]
+    }
   }
 
   draw(contests: Array<Contest>): string {
@@ -85,7 +89,7 @@ class Compositor {
 
 ${contests.map((entry, index) => this.contest(entry, index)).join('\n')}
 </svg>
-<!---->`
+`
   }
 
   contest(contest: Contest, nth = 0): string {
