@@ -65,3 +65,8 @@ export function santinizeWidthHeight(
     return null
   }
 }
+
+export function urlJoin(base: string, url: string): string {
+  const absUrl = new URL(url, base)
+  return absUrl.toString()
+}

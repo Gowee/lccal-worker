@@ -1,54 +1,57 @@
-import { LCCUrl, Contest } from './lcapi'
-import { duration2hms, xmlEscape } from './utils'
-
-function urlJoin(base: string, url: string): string {
-  const absUrl = new URL(url, base)
-  return absUrl.toString()
-}
+import { Contest } from './lcapi'
+import { duration2hms, xmlEscape, urlJoin } from './utils'
 
 export function generateSvg(
   contests: Array<Contest>,
+  contestUrlGetter: (titleSlug?: string) => string,
   offset = 0,
   limit = 10,
-  timeZone: String | null,
   width: number | string | null,
   height: number | string | null,
+  timeZone?: string | null,
+  serviceUrl?: string | null
 ): string {
-  const compositor = new Compositor(timeZone, width, height)
+  const compositor = new Compositor(contestUrlGetter, width, height, timeZone, serviceUrl)
   return compositor.draw(contests.slice(offset, offset + limit))
 }
 
 class Compositor {
+  getContestUrl: (titleSlug?: string) => string
   timeZone: String
   width: number | string
   height: number | string
+  serviceUrl?: string | null
 
   constructor(
-    timeZone: String | null,
+    contestUrlGetter: (titleSlug?: string) => string,
     width: number | string | null,
     height: number | string | null,
+    timeZone?: String | null,
+    serviceUrl?: string | null
   ) {
+    this.getContestUrl = contestUrlGetter
     this.timeZone = timeZone || 'UTC'
     this.width = width || '300'
     this.height = height || 'auto'
+    this.serviceUrl = serviceUrl
   }
 
   draw(contests: Array<Contest>): string {
     return `\
 <svg xmlns="http://www.w3.org/2000/svg" width="${xmlEscape(
       this.width,
-    )}" height="${xmlEscape(this.height)}" viewBox="0 0 300 ${
-      contests.length * 90
-    }">
+    )}" height="${xmlEscape(this.height)}" viewBox="0 0 300 ${contests.length * 90
+      }">
   <metadata>
     <rdf:RDF
       xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
       xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#"
       xmlns:dc = "http://purl.org/dc/elements/1.1/" >
-      <rdf:Description about="${LCCUrl}"
-        dc:title="LeetCode Weekly contests canlenadr"
+      <rdf:Description about="${this.getContestUrl()}"
+        dc:title="LeetCode Contests Calendar"
         dc:description="An auto-generated calendar for LeetCode (Bi)Weekly contests"
         dc:publisher="https://github.com/Gowee/lccal-worker"
+        dc:creator="${this.serviceUrl || "Unkonwn service instance"}"
         dc:date="${new Date().toISOString()}"
         dc:format="image/svg+xml"
         dc:language="en" />
@@ -74,7 +77,8 @@ class Compositor {
   </style>
 
 ${contests.map((entry, index) => this.contest(entry, index)).join('\n')}
-</svg>`
+</svg>
+<!---->`
   }
 
   contest(contest: Contest, nth = 0): string {
@@ -90,7 +94,7 @@ ${contests.map((entry, index) => this.contest(entry, index)).join('\n')}
     }
     return `\
     <rect width="300" height="87" fill="url('${gradient}')" rx="15" />
-      <a href="${xmlEscape(urlJoin(LCCUrl, contest.titleSlug))}">
+      <a href="${xmlEscape(this.getContestUrl(contest.titleSlug))}">
       <text x="15" y="30" class="contest-title">
         ${xmlEscape(contest.title)}
       </text>

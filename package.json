@@ -1,7 +1,7 @@
 {
   "name": "lccal-worker",
   "version": "0.0.0",
-  "description": "A CloudFlare worker that generate iCal for LeetCode (bi)weekly contests.",
+  "description": "A CloudFlare worker script that generate iCal or SVG for LeetCode (bi)weekly contests",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -13,6 +13,8 @@
   },
   "author": "Hung-I Wang <whygowe@gmail.com>",
   "license": "MIT OR Apache-2.0",
+  "homepage": "https://github.com/gowee/lccal-worker",
+  "iCalService": "https://lccal-worker.bamboo.workers.dev/ical",
   "devDependencies": {
     "@cloudflare/workers-types": "^2.0.0",
     "@types/chai": "^4.2.11",
