@@ -4,7 +4,7 @@ import { cached } from './utils'
 import { generateSvg } from './svggen'
 
 const HEADERS_ICAL = {
-  'Contest-Type': 'text/calendar; charset=utf-8',
+  'Content-Type': 'text/calendar; charset=utf-8',
   'Content-Disposition': `attachment; filename="leetcode-contests.ical"`,
 }
 
