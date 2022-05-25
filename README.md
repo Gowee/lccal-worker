@@ -16,9 +16,9 @@ Most other calendar services also support subscribing by URL: https://duck.com/?
 
 An auto-generated SVG for fun.
 
-| Name | Description |
-|-|-|
-| width | The size of the generated SVG. `300` by default. |
+| Name   | Description                                       |
+| ------ | ------------------------------------------------- |
+| width  | The size of the generated SVG. `300` by default.  |
 | height | The size of the generated SVG. `auto` by default. |
 
 For example:
@@ -30,10 +30,10 @@ For example:
 ## Other params
 The following URL query params are for both of the two endpoint above.
 
-| Name | Description |
-|-|-|
-| offset | N-th contests, in descending order of time, to start. `0` by default. |
-| limit | The number of contests to get. `10` by default. |
-| region | LeetCode's data region, either `US` or `CN`. `US` by default. |
-| timezone | Timezone to use in calendar. `Asia/Shanghai` by default when `region=CN`. `UTC` O.W. |
+| Name     | Description                                                                           |
+| -------- | ------------------------------------------------------------------------------------- |
+| offset   | N-th contests, in descending order of time, to start. `0` by default.                 |
+| limit    | The number of contests to get. `10` by default.                                       |
+| region   | LeetCode's data region, either `US` or `CN`. `US` by default.                         |
+| timezone | Timezone to use in calendar. `Asia/Shanghai` by default when `region=CN`. `UTC` O.W.  |
 | download | When present and not `false` or `0`, instruct the browser to save the generated file. |
