@@ -8,7 +8,7 @@ function urlJoin(base: string, url: string): string {
 }
 
 export function generateCalendar(
-  contests: Array<Contest>,
+  contests: Array<Contest>, 
   contestUrlGetter: (titleSlug?: string) => string,
   offset = 0,
   limit = 10,
@@ -18,6 +18,7 @@ export function generateCalendar(
   const cal = ICalGenerator({
     domain: 'lccal-worker',
     name: 'LeetCode Contests',
+    method: 'PUBLISH',
     url: serviceUrl || PACKAGE.iCalService + '?from_unknown_service_instance',
     timezone: timezone || undefined,
   })
@@ -28,6 +29,15 @@ export function generateCalendar(
       end: new Date((contest.startTime + contest.duration) * 1000),
       summary: `[Leetcode] ${contest.title}`,
       url: contestUrlGetter(contest.titleSlug),
+      location: contestUrlGetter(contest.titleSlug),
+      description: contest.description,
+      alarms: [
+        {
+          trigger: 15 * 60,
+          type: 'display',
+          description: 'The contest is soon to start',
+        },
+      ],
     })
   }
   return cal.toString()

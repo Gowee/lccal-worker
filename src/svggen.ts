@@ -42,7 +42,7 @@ class Compositor {
     this.serviceUrl = serviceUrl
     if (this.serviceUrl) {
       // xmlEscape won't escape &
-      this.serviceUrl = this.serviceUrl.split("?")[0]
+      this.serviceUrl = this.serviceUrl.split('?')[0]
     }
   }
 
