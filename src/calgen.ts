@@ -22,14 +22,14 @@ export function generateCalendar(
     timezone: timezone || undefined,
   })
   for (const contest of contests.slice(offset, offset + limit)) {
-    const ctsUrl = contestUrlGetter(contest.titleSlug);
+    const ctsUrl = contestUrlGetter(contest.titleSlug)
     cal.createEvent({
       id: contest.titleSlug,
       start: new Date(contest.startTime * 1000),
       end: new Date((contest.startTime + contest.duration) * 1000),
       summary: `[Leetcode] ${contest.title}`,
       url: ctsUrl,
-      location: ctsUrl
+      location: ctsUrl,
     })
   }
   return cal.toString()

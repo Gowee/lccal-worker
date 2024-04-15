@@ -1,0 +1,3 @@
+main = "./src/index.ts"
+name = "lccal-worker"
+compatibility_date = "2022-07-26"

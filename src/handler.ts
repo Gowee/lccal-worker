@@ -29,9 +29,8 @@ The old default endpoint "/" is deprecated and may be removed in the future.
 
 async function handleICal(request: Request): Promise<Response> {
   const params = new URL(request.url).searchParams
-  const { offset, limit, region, timezone, download } = extractCommonParams(
-    params,
-  )
+  const { offset, limit, region, timezone, download } =
+    extractCommonParams(params)
   const lc = new LCApi(region)
   const contests = await lc.fetchContests()
   // Not necessary to specify timeZone here, as it produces standard date format.
@@ -48,9 +47,8 @@ async function handleICal(request: Request): Promise<Response> {
 
 async function handleSvg(request: Request): Promise<Response> {
   const params = new URL(request.url).searchParams
-  const { offset, limit, region, timezone, download } = extractCommonParams(
-    params,
-  )
+  const { offset, limit, region, timezone, download } =
+    extractCommonParams(params)
   const width = params.get('width')
   const height = params.get('height')
   const lc = new LCApi(region)

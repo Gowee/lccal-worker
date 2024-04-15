@@ -1,5 +1,5 @@
 import { Contest } from './lcapi'
-import { duration2hms, xmlEscape, urlJoin } from './utils'
+import { duration2hms, htmlEscape, urlJoin } from './utils'
 
 export function generateSvg(
   contests: Array<Contest>,
@@ -42,15 +42,15 @@ class Compositor {
     this.serviceUrl = serviceUrl
     if (this.serviceUrl) {
       // xmlEscape won't escape &
-      this.serviceUrl = this.serviceUrl.split("?")[0]
+      this.serviceUrl = this.serviceUrl.split('?')[0]
     }
   }
 
   draw(contests: Array<Contest>): string {
     return `\
-<svg xmlns="http://www.w3.org/2000/svg" width="${xmlEscape(
+<svg xmlns="http://www.w3.org/2000/svg" width="${htmlEscape(
       this.width,
-    )}" height="${xmlEscape(this.height)}" viewBox="0 0 300 ${
+    )}" height="${htmlEscape(this.height)}" viewBox="0 0 300 ${
       contests.length * 90
     }">
   <metadata>
@@ -105,9 +105,9 @@ ${contests.map((entry, index) => this.contest(entry, index)).join('\n')}
     }
     return `\
     <rect width="300" height="87" fill="url('${gradient}')" rx="15" />
-      <a href="${xmlEscape(this.getContestUrl(contest.titleSlug))}">
+      <a href="${htmlEscape(this.getContestUrl(contest.titleSlug))}">
       <text x="15" y="30" class="contest-title">
-        ${xmlEscape(contest.title)}
+        ${htmlEscape(contest.title)}
       </text>
       <text x="15" y="50">
         ${this.datetimeText(contest.startTime, contest.duration)}

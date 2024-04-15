@@ -1,4 +1,4 @@
-import { XmlEntities } from 'html-entities'
+import { encode as htmlEntityEncode } from 'html-entities'
 
 export function cached(
   func: (request: Request) => Promise<Response>,
@@ -32,9 +32,7 @@ export function divmod(a: number, b: number): [number, number] {
   return [Math.floor(a / b), a % b]
 }
 
-const xmlEscaper = new XmlEntities()
-
-export function xmlEscape(
+export function htmlEscape(
   text: string | number | null | undefined | boolean,
 ): string | number | null | undefined | boolean {
   if (
@@ -45,7 +43,7 @@ export function xmlEscape(
   ) {
     return text
   } else {
-    return xmlEscaper.encode(text)
+    return htmlEntityEncode(text)
   }
 }
 
@@ -56,9 +54,9 @@ export function santinizeWidthHeight(
   if (
     value === null ||
     typeof value === 'number' ||
-    parseInt(value) !== NaN ||
+    !Number.isNaN(parseInt(value)) ||
     value.toLowerCase() == 'auto' ||
-    (value.endsWith('%') && parseInt(value.slice(0, value.length - 1)) !== NaN)
+    (value.endsWith('%') && !Number.isNaN(value.slice(0, value.length - 1)))
   ) {
     return value
   } else {

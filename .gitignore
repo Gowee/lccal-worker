@@ -2,6 +2,5 @@ dist
 node_modules
 transpiled
 worker
-wrangler.toml
 .vscode
 yarn-error.log

@@ -46,11 +46,10 @@ export class LCApi {
     // TODO: Does the `allContests` GraphQL query support limit / offset?
     const response = await fetch(urlJoin(this.baseUrl, '/graphql'), {
       headers: JSON_REQUEST_HEADERS,
-      body:
-        '{"operationName":null,"variables":{},"query":"{\\n  brightTitle\\n  allContests {\\n    containsPremium\\n    title\\n    cardImg\\n    titleSlug\\n    description\\n    startTime\\n    duration\\n    originStartTime\\n    isVirtual\\n    company {\\n      watermark\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n"}',
+      body: '{"operationName":null,"variables":{},"query":"{\\n  brightTitle\\n  allContests {\\n    containsPremium\\n    title\\n    cardImg\\n    titleSlug\\n    description\\n    startTime\\n    duration\\n    originStartTime\\n    isVirtual\\n    company {\\n      watermark\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n"}',
       method: 'POST',
     })
-    const data = await response.json()
+    const data = (await response.json()) as any
     const contests: Array<Contest> = data.data.allContests
     return contests
   }
