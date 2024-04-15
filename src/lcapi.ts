@@ -31,7 +31,7 @@ export class LCApi {
   constructor(dataRegion?: string | null) {
     switch (dataRegion) {
       case 'CN':
-        this.baseUrl = 'https://leetcode-cn.com/'
+        this.baseUrl = 'https://leetcode.cn/'
         break
       case 'US':
       default:
