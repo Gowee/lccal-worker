@@ -27,8 +27,12 @@ const JSON_REQUEST_HEADERS = {
 
 export class LCApi {
   baseUrl: string
+  skipInternalContest: boolean
 
-  constructor(dataRegion?: string | null) {
+  constructor(
+    dataRegion?: string | null,
+    skipInternalContest: boolean | true = true,
+  ) {
     switch (dataRegion) {
       case 'CN':
         this.baseUrl = 'https://leetcode.cn/'
@@ -37,6 +41,7 @@ export class LCApi {
       default:
         this.baseUrl = 'https://leetcode.com/'
     }
+    this.skipInternalContest = skipInternalContest
 
     // this.fetchContests = this.fetchContests.bind(this)
     this.getContestUrl = this.getContestUrl.bind(this)
@@ -50,7 +55,13 @@ export class LCApi {
       method: 'POST',
     })
     const data = (await response.json()) as any
-    const contests: Array<Contest> = data.data.allContests
+    let contests: Array<Contest> = data.data.allContests
+    if (this.skipInternalContest) {
+      contests = contests.filter(
+        (contest: Contest) =>
+          !contest.titleSlug.includes('internal-dynamic-contest'),
+      )
+    }
     return contests
   }
 

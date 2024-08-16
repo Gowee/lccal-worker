@@ -29,9 +29,9 @@ The old default endpoint "/" is deprecated and may be removed in the future.
 
 async function handleICal(request: Request): Promise<Response> {
   const params = new URL(request.url).searchParams
-  const { offset, limit, region, timezone, download } =
+  const { offset, limit, region, timezone, download, skipInternalContest } =
     extractCommonParams(params)
-  const lc = new LCApi(region)
+  const lc = new LCApi(region, skipInternalContest)
   const contests = await lc.fetchContests()
   // Not necessary to specify timeZone here, as it produces standard date format.
   const ical = generateCalendar(
@@ -47,11 +47,11 @@ async function handleICal(request: Request): Promise<Response> {
 
 async function handleSvg(request: Request): Promise<Response> {
   const params = new URL(request.url).searchParams
-  const { offset, limit, region, timezone, download } =
+  const { offset, limit, region, timezone, download, skipInternalContest } =
     extractCommonParams(params)
   const width = params.get('width')
   const height = params.get('height')
-  const lc = new LCApi(region)
+  const lc = new LCApi(region, skipInternalContest)
   const contests = await lc.fetchContests()
   const svg = generateSvg(
     contests,
@@ -93,6 +93,7 @@ interface CommonParams {
   region?: string | null
   timezone?: string | null
   download: boolean
+  skipInternalContest: boolean
 }
 
 function extractCommonParams(params: URLSearchParams): CommonParams {
@@ -112,11 +113,14 @@ function extractCommonParams(params: URLSearchParams): CommonParams {
   // If timezone is not specified and if region is CN, Asia/Shanghai will be used as default.
   const timezone =
     params.get('timezone') || (region === 'CN' ? 'Asia/Shanghai' : undefined)
+  const skipInternalContest =
+    params.get('skip_internal_contest') === 'false' ? false : true
   return {
     offset,
     limit,
     region,
     timezone,
     download,
+    skipInternalContest,
   }
 }
